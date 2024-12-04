@@ -1,0 +1,16 @@
+version: 0.0
+Resources:
+  - MyApiFunction:
+      Type: AWS::Lambda::Function
+      Properties:
+        Name: "MyApiFunction"
+        Alias: "live"
+Hooks:
+  BeforeAllowTraffic:
+    - location: scripts/pre_traffic.sh
+      timeout: 300
+      runas: root
+  AfterAllowTraffic:
+    - location: scripts/post_traffic.sh
+      timeout: 300
+      runas: root
